@@ -1,47 +1,55 @@
-// ID 
-// getElementById seleciona e retorna elementos do DOM
+// HTMLCollection vs NodeList
+// A diferença está nos métodos e propriedades de ambas. Além disso a NodeList retornara com querySelectorAll é estática.
 
-// Seleciona pelo ID
-const animaisSection = document.getElementById('animais');
-const contatoSection = document.getElementById('contato');
+const titulo = document.querySelector('.titulo');
+const gridSectionHTML = document.getElementsByClassName('grid-section');
+const gridSectionNode = document.querySelectorAll('.grid-section');
 
-// Retorna null caso não exista
-const naoExiste = document.getElementById('teste');
+titulo.classList.add('grid-section');
 
-// Classe e Tag 
-// getElementeByClassName e getElementByTagName
-// selecionam e retornam uma lista de elementos do DOM. A lista retornada está ao vivo,
-// significa que se elementos forem adicionado, ela será automaticamente atualizada.
+console.log(gridSectionHTML); // 4 itens 
+console.log(gridSectionNode); // 3 itens
 
-// Seleciona pela classe, retorna uma HTMLCollection
-const gridSection = document.getElementsByClassName('grid-section');
-const contato = document.getElementsByClassName('grid-section contato'); // Seleciona apenas os elementos que tem as duas classes juntas
+// Array Like
+// HTMLCollection e NodeList são array-like, parecem uma array mas não são.
+// O método do Array forEach() por exemplo, existe apenas em NodeList.
 
-// Seleciona todas as UL´s, retorna uma HTMLCollection
-const ul = document.getElementsByTagName('ul');
+const gridSection = document.querySelectorAll('.grid-section');
 
-// Retorna o primeiro elemento
-console.log(gridSection[0]);
+gridSection.forEach(function(gridItem, index, array){
+    gridItem.classList.add('azul');
+    console.log(index); // index do item no array
+    console.log(array); // o array completa
+})
 
-// Seletor Geral Único
-// querySelector retorna o primeiro elemento que combinar com o seu seletor CSS
+// É possivel transformar array-like em uma Array real, utilizando o método Array.from(gridSection)
+/* Exemplo
 
-const animais = document.querySelector('.animais');
-const contatos = document.querySelector('#contato');
-const ultimoItem = document.querySelector('.animais-lista li:last-child');
-const linkCSS = document.querySelector('[href^="https://"]'); // Seleciona todos os item que sejam href e que começem com https://
-const primeiroUl = document.querySelector('ul');
+ const gridSectionHTML = document.getElementsByClassName('grid-section');
+ const arrayGrid = Array.from(gridSectionHTML) 
+ 
+ */
 
-// Busca dentro do Ul apenas
-const navItem = primeiroUl.querySelector('li');
 
-// Seletor Geral Lista
-// querySelectorAll retorna todos os elementos compatíveis com o seletor CSS em uma NodeList
 
-const sectionGrid = document.querySelectorAll('.grid-section');
-const lista = document.querySelectorAll('ul');
-const titulos = document.querySelectorAll('.titulo');
-const fotosAnimais = document.querySelectorAll('.animais-lista img');
+// Exercicios
 
-// Retorna o segundo elemento
-console.log(gridSection[1]);
+// Retorne no cosole todas as imagens do site
+const img = document.querySelectorAll('img')
+console.log(img);
+
+// Retorne no console apenas as imagens que começam coma a palavra imagem
+const imagensAnimais = document.querySelectorAll('img[src^="img/imagem"]');
+console.log(imagensAnimais);
+
+//Selecione todos os links internos (onde o href começa com #)
+const linksInternos = document.querySelectorAll('[href^="#"]');
+console.log(linksInternos);
+
+// Selecione o primeiro h2 dentro de .animais-descricao
+const h2Animais = document.querySelector('.animais-descricao h2')
+console.log(h2Animais);
+
+// Selecione o último p do site
+const paragrafos = document.querySelectorAll('p');
+console.log(paragrafos[paragrafos.length - 1]);
